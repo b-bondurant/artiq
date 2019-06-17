@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Mon Jun 17 14:31:23 2019
+# Process ID: 25221
+# Current directory: /home/brad/artiq/artiq/board-support/duke2/gateware
+# Command line: vivado -mode batch -source top.tcl
+# Log file: /home/brad/artiq/artiq/board-support/duke2/gateware/vivado.log
+# Journal file: /home/brad/artiq/artiq/board-support/duke2/gateware/vivado.jou
+#-----------------------------------------------------------
+source top.tcl

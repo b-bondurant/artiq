@@ -1,0 +1,599 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------
+| Tool Version     : Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018
+| Date             : Mon Jun 17 16:01:22 2019
+| Host             : brad-ThinkCentre-M910t running 64-bit Ubuntu 18.04.2 LTS
+| Command          : report_power -file top_power.rpt
+| Design           : top
+| Device           : xc7a100tfgg484-2
+| Design State     : routed
+| Grade            : commercial
+| Process          : typical
+| Characterization : Production
+----------------------------------------------------------------------------------------
+
+Power Report
+
+Table of Contents
+-----------------
+1. Summary
+1.1 On-Chip Components
+1.2 Power Supply Summary
+1.3 Confidence Level
+2. Settings
+2.1 Environment
+2.2 Clock Constraints
+3. Detailed Reports
+3.1 By Hierarchy
+
+1. Summary
+----------
+
++--------------------------+--------------+
+| Total On-Chip Power (W)  | 3.194        |
+| Design Power Budget (W)  | Unspecified* |
+| Power Budget Margin (W)  | NA           |
+| Dynamic (W)              | 3.078        |
+| Device Static (W)        | 0.116        |
+| Total Off-Chip Power (W) | 0.755        |
+| Effective TJA (C/W)      | 2.7          |
+| Max Ambient (C)          | 76.5         |
+| Junction Temperature (C) | 33.5         |
+| Confidence Level         | Low          |
+| Setting File             | ---          |
+| Simulation Activity File | ---          |
+| Design Nets Matched      | NA           |
++--------------------------+--------------+
+* Specify Design Power Budget using, set_operating_conditions -design_power_budget <value in Watts>
+
+
+1.1 On-Chip Components
+----------------------
+
++--------------------------+-----------+----------+-----------+-----------------+
+| On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
++--------------------------+-----------+----------+-----------+-----------------+
+| Clocks                   |     0.129 |       23 |       --- |             --- |
+| Slice Logic              |     0.067 |    53155 |       --- |             --- |
+|   LUT as Logic           |     0.059 |    22253 |     63400 |           35.10 |
+|   Register               |     0.003 |    24177 |    126800 |           19.07 |
+|   LUT as Distributed RAM |     0.003 |     1028 |     19000 |            5.41 |
+|   CARRY4                 |     0.002 |      582 |     15850 |            3.67 |
+|   F7/F8 Muxes            |    <0.001 |      592 |     63400 |            0.93 |
+|   LUT as Shift Register  |    <0.001 |       54 |     19000 |            0.28 |
+|   BUFG                   |     0.000 |        1 |        32 |            3.13 |
+|   Others                 |     0.000 |       83 |       --- |             --- |
+| Signals                  |     0.117 |    45400 |       --- |             --- |
+| Block RAM                |     0.167 |       79 |       135 |           58.52 |
+| MMCM                     |     0.224 |        3 |         6 |           50.00 |
+| PLL                      |     0.161 |        2 |         6 |           33.33 |
+| DSPs                     |     0.007 |        6 |       240 |            2.50 |
+| I/O                      |     2.099 |      192 |       285 |           67.37 |
+| GTP                      |     0.107 |        1 |       --- |             --- |
+| Static Power             |     0.116 |          |           |                 |
+| Total                    |     3.194 |          |           |                 |
++--------------------------+-----------+----------+-----------+-----------------+
+
+
+1.2 Power Supply Summary
+------------------------
+
++-----------+-------------+-----------+-------------+------------+
+| Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
++-----------+-------------+-----------+-------------+------------+
+| Vccint    |       1.000 |     0.546 |       0.522 |      0.023 |
+| Vccaux    |       1.800 |     0.281 |       0.262 |      0.019 |
+| Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |
+| Vcco25    |       2.500 |     0.779 |       0.775 |      0.004 |
+| Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
+| Vcco15    |       1.500 |     0.530 |       0.526 |      0.004 |
+| Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |
+| Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |
+| Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |
+| Vccbram   |       1.000 |     0.014 |       0.011 |      0.003 |
+| MGTAVcc   |       1.000 |     0.052 |       0.050 |      0.002 |
+| MGTAVtt   |       1.200 |     0.045 |       0.042 |      0.003 |
+| Vccadc    |       1.800 |     0.020 |       0.000 |      0.020 |
++-----------+-------------+-----------+-------------+------------+
+
+
+1.3 Confidence Level
+--------------------
+
++-----------------------------+------------+--------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| User Input Data             | Confidence | Details                                                | Action                                                                                                     |
++-----------------------------+------------+--------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| Design implementation state | High       | Design is routed                                       |                                                                                                            |
+| Clock nodes activity        | High       | User specified more than 95% of clocks                 |                                                                                                            |
+| I/O nodes activity          | Low        | More than 75% of inputs are missing user specification | Provide missing input activity with simulation results or by editing the "By Resource Type -> I/Os" view   |
+| Internal nodes activity     | Medium     | User specified less than 25% of internal nodes         | Provide missing internal nodes activity with simulation results or by editing the "By Resource Type" views |
+| Device models               | High       | Device models are Production                           |                                                                                                            |
+|                             |            |                                                        |                                                                                                            |
+| Overall confidence level    | Low        |                                                        |                                                                                                            |
++-----------------------------+------------+--------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+
+
+2. Settings
+-----------
+
+2.1 Environment
+---------------
+
++-----------------------+--------------------------+
+| Ambient Temp (C)      | 25.0                     |
+| ThetaJA (C/W)         | 2.7                      |
+| Airflow (LFM)         | 250                      |
+| Heat Sink             | medium (Medium Profile)  |
+| ThetaSA (C/W)         | 4.6                      |
+| Board Selection       | medium (10"x10")         |
+| # of Board Layers     | 12to15 (12 to 15 Layers) |
+| Board Temperature (C) | 25.0                     |
++-----------------------+--------------------------+
+
+
+2.2 Clock Constraints
+---------------------
+
++---------------------------------------------------------+---------------------------------------------------------+-----------------+
+| Clock                                                   | Domain                                                  | Constraint (ns) |
++---------------------------------------------------------+---------------------------------------------------------+-----------------+
+| clk125_gtp_p                                            | clk125_gtp_p                                            |             8.0 |
+| main_genericstandalone_clk_rx_half_unbuf                | main_genericstandalone_clk_rx_half_unbuf                |            16.0 |
+| main_genericstandalone_clk_rx_unbuf                     | main_genericstandalone_clk_rx_unbuf                     |             8.0 |
+| main_genericstandalone_clk_tx_half_unbuf                | main_genericstandalone_clk_tx_half_unbuf                |            16.0 |
+| main_genericstandalone_clk_tx_unbuf                     | main_genericstandalone_clk_tx_unbuf                     |             8.0 |
+| main_genericstandalone_genericstandalone_clk125_div2    | main_genericstandalone_genericstandalone_clk125_div2    |            16.0 |
+| main_genericstandalone_genericstandalone_mmcm_fb        | main_genericstandalone_genericstandalone_mmcm_fb        |            16.0 |
+| main_genericstandalone_genericstandalone_mmcm_sys       | main_genericstandalone_genericstandalone_mmcm_sys       |             8.8 |
+| main_genericstandalone_genericstandalone_mmcm_sys4x     | main_genericstandalone_genericstandalone_mmcm_sys4x     |             2.2 |
+| main_genericstandalone_genericstandalone_mmcm_sys4x_dqs | main_genericstandalone_genericstandalone_mmcm_sys4x_dqs |             2.2 |
+| main_genericstandalone_genericstandalone_pll_clk200     | main_genericstandalone_genericstandalone_pll_clk200     |             5.0 |
+| main_genericstandalone_genericstandalone_pll_fb         | main_genericstandalone_genericstandalone_pll_fb         |            16.0 |
+| main_genericstandalone_rx_mmcm_fb                       | main_genericstandalone_rx_mmcm_fb                       |            16.0 |
+| main_genericstandalone_rxoutclk                         | main_genericstandalone_rxoutclk                         |            16.0 |
+| main_genericstandalone_tx_mmcm_fb                       | main_genericstandalone_tx_mmcm_fb                       |            16.0 |
+| main_genericstandalone_txoutclk                         | main_genericstandalone_txoutclk                         |            16.0 |
+| main_rtio_crg_fb_clk                                    | main_rtio_crg_fb_clk                                    |             8.0 |
+| main_rtio_crg_rtio_clk                                  | main_rtio_crg_rtio_clk                                  |             8.0 |
+| main_rtio_crg_rtiox4_clk                                | main_rtio_crg_rtiox4_clk                                |             2.0 |
+| si5324_clkout_fabric_p                                  | si5324_clkout_fabric_p                                  |             8.0 |
+| sys_clk                                                 | sys_clk                                                 |             8.8 |
++---------------------------------------------------------+---------------------------------------------------------+-----------------+
+
+
+3. Detailed Reports
+-------------------
+
+3.1 By Hierarchy
+----------------
+
++------------------------------------------------------------------+-----------+
+| Name                                                             | Power (W) |
++------------------------------------------------------------------+-----------+
+| top                                                              |     3.078 |
+|   IOBUF                                                          |     0.004 |
+|   IOBUFDS                                                        |     0.026 |
+|   IOBUFDS_1                                                      |     0.002 |
+|   IOBUFDS_2                                                      |     0.026 |
+|   IOBUFDS_3                                                      |     0.002 |
+|   IOBUFDS_4                                                      |     0.002 |
+|   IOBUFDS_5                                                      |     0.026 |
+|   IOBUFDS_6                                                      |     0.002 |
+|   IOBUFDS_7                                                      |     0.026 |
+|   IOBUFDS_8                                                      |     0.002 |
+|   IOBUFDS_INTERMDISABLE                                          |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_1                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_10                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_11                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_12                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_13                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_14                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_15                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_16                                       |     0.022 |
+|     IBUFDS                                                       |     0.004 |
+|   IOBUFDS_INTERMDISABLE_17                                       |     0.022 |
+|     IBUFDS                                                       |     0.004 |
+|   IOBUFDS_INTERMDISABLE_18                                       |     0.022 |
+|     IBUFDS                                                       |     0.004 |
+|   IOBUFDS_INTERMDISABLE_19                                       |     0.022 |
+|     IBUFDS                                                       |     0.004 |
+|   IOBUFDS_INTERMDISABLE_2                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_20                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_21                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_22                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_23                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_24                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_25                                       |     0.036 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_26                                       |     0.036 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_27                                       |     0.036 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_28                                       |     0.036 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_29                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_3                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_30                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_31                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_32                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_33                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_34                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_35                                       |     0.036 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_36                                       |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_4                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_5                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_6                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_7                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_8                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUFDS_INTERMDISABLE_9                                        |     0.035 |
+|     IBUFDS                                                       |     0.000 |
+|   IOBUF_1                                                        |     0.004 |
+|   IOBUF_10                                                       |     0.004 |
+|   IOBUF_11                                                       |     0.004 |
+|   IOBUF_12                                                       |     0.004 |
+|   IOBUF_13                                                       |     0.004 |
+|   IOBUF_14                                                       |     0.004 |
+|   IOBUF_15                                                       |     0.004 |
+|   IOBUF_2                                                        |     0.004 |
+|   IOBUF_3                                                        |     0.004 |
+|   IOBUF_4                                                        |     0.005 |
+|   IOBUF_5                                                        |     0.005 |
+|   IOBUF_6                                                        |     0.005 |
+|   IOBUF_7                                                        |     0.005 |
+|   IOBUF_8                                                        |     0.004 |
+|   IOBUF_9                                                        |     0.004 |
+|   OBUFDS                                                         |     0.002 |
+|   OBUFTDS                                                        |     0.002 |
+|   OBUFTDS_1                                                      |     0.002 |
+|   i2c_scl_IOBUF_inst                                             |     0.000 |
+|   i2c_sda_IOBUF_inst                                             |     0.000 |
+|   mor1kx                                                         |     0.061 |
+|     mor1kx_cpu                                                   |     0.061 |
+|       cappuccino.mor1kx_cpu                                      |     0.061 |
+|         mor1kx_branch_prediction                                 |    <0.001 |
+|           branch_predictor_simple.mor1kx_branch_predictor_simple |    <0.001 |
+|         mor1kx_ctrl_cappuccino                                   |     0.002 |
+|           pic.mor1kx_pic                                         |    <0.001 |
+|         mor1kx_decode_execute_cappuccino                         |     0.005 |
+|         mor1kx_execute_alu                                       |     0.007 |
+|         mor1kx_execute_ctrl_cappuccino                           |     0.002 |
+|         mor1kx_fetch_cappuccino                                  |     0.014 |
+|           icache_gen.mor1kx_icache                               |     0.011 |
+|             tag_ram                                              |     0.003 |
+|             way_memories[0].way_data_ram                         |     0.008 |
+|         mor1kx_lsu_cappuccino                                    |     0.025 |
+|           dcache_gen.mor1kx_dcache                               |     0.010 |
+|             tag_ram                                              |     0.005 |
+|               mem_reg_0_63_0_2                                   |    <0.001 |
+|               mem_reg_0_63_12_14                                 |    <0.001 |
+|               mem_reg_0_63_15_17                                 |    <0.001 |
+|               mem_reg_0_63_18_18                                 |    <0.001 |
+|               mem_reg_0_63_19_19                                 |    <0.001 |
+|               mem_reg_0_63_3_5                                   |    <0.001 |
+|               mem_reg_0_63_6_8                                   |    <0.001 |
+|               mem_reg_0_63_9_11                                  |    <0.001 |
+|               mem_reg_128_191_0_2                                |    <0.001 |
+|               mem_reg_128_191_12_14                              |    <0.001 |
+|               mem_reg_128_191_15_17                              |    <0.001 |
+|               mem_reg_128_191_18_18                              |    <0.001 |
+|               mem_reg_128_191_19_19                              |    <0.001 |
+|               mem_reg_128_191_3_5                                |    <0.001 |
+|               mem_reg_128_191_6_8                                |    <0.001 |
+|               mem_reg_128_191_9_11                               |    <0.001 |
+|               mem_reg_192_255_0_2                                |    <0.001 |
+|               mem_reg_192_255_12_14                              |    <0.001 |
+|               mem_reg_192_255_15_17                              |    <0.001 |
+|               mem_reg_192_255_18_18                              |    <0.001 |
+|               mem_reg_192_255_19_19                              |    <0.001 |
+|               mem_reg_192_255_3_5                                |    <0.001 |
+|               mem_reg_192_255_6_8                                |    <0.001 |
+|               mem_reg_192_255_9_11                               |    <0.001 |
+|               mem_reg_64_127_0_2                                 |    <0.001 |
+|               mem_reg_64_127_12_14                               |    <0.001 |
+|               mem_reg_64_127_15_17                               |    <0.001 |
+|               mem_reg_64_127_18_18                               |    <0.001 |
+|               mem_reg_64_127_19_19                               |    <0.001 |
+|               mem_reg_64_127_3_5                                 |    <0.001 |
+|               mem_reg_64_127_6_8                                 |    <0.001 |
+|               mem_reg_64_127_9_11                                |    <0.001 |
+|             way_memories[0].way_data_ram                         |     0.005 |
+|           store_buffer_gen.mor1kx_store_buffer                   |     0.009 |
+|             fifo_ram                                             |     0.009 |
+|         mor1kx_rf_cappuccino                                     |     0.004 |
+|           rfa                                                    |    <0.001 |
+|           rfb                                                    |    <0.001 |
+|         mor1kx_wb_mux_cappuccino                                 |     0.001 |
+|   mor1kx_1                                                       |     0.059 |
+|     mor1kx_cpu                                                   |     0.059 |
+|       cappuccino.mor1kx_cpu                                      |     0.059 |
+|         mor1kx_branch_prediction                                 |    <0.001 |
+|           branch_predictor_simple.mor1kx_branch_predictor_simple |    <0.001 |
+|         mor1kx_ctrl_cappuccino                                   |     0.002 |
+|           pic.mor1kx_pic                                         |    <0.001 |
+|         mor1kx_decode_execute_cappuccino                         |     0.007 |
+|         mor1kx_execute_alu                                       |     0.008 |
+|         mor1kx_execute_ctrl_cappuccino                           |     0.002 |
+|         mor1kx_fetch_cappuccino                                  |     0.009 |
+|           icache_gen.mor1kx_icache                               |     0.008 |
+|             tag_ram                                              |     0.003 |
+|             way_memories[0].way_data_ram                         |     0.005 |
+|         mor1kx_lsu_cappuccino                                    |     0.025 |
+|           dcache_gen.mor1kx_dcache                               |     0.008 |
+|             tag_ram                                              |     0.004 |
+|               mem_reg_0_63_0_2                                   |    <0.001 |
+|               mem_reg_0_63_12_14                                 |    <0.001 |
+|               mem_reg_0_63_15_17                                 |    <0.001 |
+|               mem_reg_0_63_18_18                                 |    <0.001 |
+|               mem_reg_0_63_19_19                                 |    <0.001 |
+|               mem_reg_0_63_3_5                                   |    <0.001 |
+|               mem_reg_0_63_6_8                                   |    <0.001 |
+|               mem_reg_0_63_9_11                                  |    <0.001 |
+|               mem_reg_128_191_0_2                                |    <0.001 |
+|               mem_reg_128_191_12_14                              |    <0.001 |
+|               mem_reg_128_191_15_17                              |    <0.001 |
+|               mem_reg_128_191_18_18                              |    <0.001 |
+|               mem_reg_128_191_19_19                              |    <0.001 |
+|               mem_reg_128_191_3_5                                |    <0.001 |
+|               mem_reg_128_191_6_8                                |    <0.001 |
+|               mem_reg_128_191_9_11                               |    <0.001 |
+|               mem_reg_192_255_0_2                                |    <0.001 |
+|               mem_reg_192_255_12_14                              |    <0.001 |
+|               mem_reg_192_255_15_17                              |    <0.001 |
+|               mem_reg_192_255_18_18                              |    <0.001 |
+|               mem_reg_192_255_19_19                              |    <0.001 |
+|               mem_reg_192_255_3_5                                |    <0.001 |
+|               mem_reg_192_255_6_8                                |    <0.001 |
+|               mem_reg_192_255_9_11                               |    <0.001 |
+|               mem_reg_64_127_0_2                                 |    <0.001 |
+|               mem_reg_64_127_12_14                               |    <0.001 |
+|               mem_reg_64_127_15_17                               |    <0.001 |
+|               mem_reg_64_127_18_18                               |    <0.001 |
+|               mem_reg_64_127_19_19                               |    <0.001 |
+|               mem_reg_64_127_3_5                                 |    <0.001 |
+|               mem_reg_64_127_6_8                                 |    <0.001 |
+|               mem_reg_64_127_9_11                                |    <0.001 |
+|             way_memories[0].way_data_ram                         |     0.004 |
+|           store_buffer_gen.mor1kx_store_buffer                   |     0.007 |
+|             fifo_ram                                             |     0.007 |
+|         mor1kx_rf_cappuccino                                     |     0.005 |
+|           rfa                                                    |    <0.001 |
+|           rfb                                                    |    <0.001 |
+|         mor1kx_wb_mux_cappuccino                                 |     0.001 |
+|   spiflash2x_dq_IOBUF[0]_inst                                    |    <0.001 |
+|   spiflash2x_dq_IOBUF[1]_inst                                    |    <0.001 |
+|   storage_13_reg_0_63_0_2                                        |    <0.001 |
+|   storage_13_reg_0_63_102_104                                    |    <0.001 |
+|   storage_13_reg_0_63_105_107                                    |    <0.001 |
+|   storage_13_reg_0_63_108_110                                    |    <0.001 |
+|   storage_13_reg_0_63_111_113                                    |    <0.001 |
+|   storage_13_reg_0_63_114_114                                    |    <0.001 |
+|   storage_13_reg_0_63_115_115                                    |    <0.001 |
+|   storage_13_reg_0_63_12_14                                      |    <0.001 |
+|   storage_13_reg_0_63_15_17                                      |    <0.001 |
+|   storage_13_reg_0_63_18_20                                      |    <0.001 |
+|   storage_13_reg_0_63_21_23                                      |    <0.001 |
+|   storage_13_reg_0_63_24_26                                      |    <0.001 |
+|   storage_13_reg_0_63_27_29                                      |    <0.001 |
+|   storage_13_reg_0_63_30_32                                      |    <0.001 |
+|   storage_13_reg_0_63_33_35                                      |    <0.001 |
+|   storage_13_reg_0_63_36_38                                      |    <0.001 |
+|   storage_13_reg_0_63_39_41                                      |    <0.001 |
+|   storage_13_reg_0_63_3_5                                        |    <0.001 |
+|   storage_13_reg_0_63_42_44                                      |    <0.001 |
+|   storage_13_reg_0_63_45_47                                      |    <0.001 |
+|   storage_13_reg_0_63_48_50                                      |    <0.001 |
+|   storage_13_reg_0_63_51_53                                      |    <0.001 |
+|   storage_13_reg_0_63_54_56                                      |    <0.001 |
+|   storage_13_reg_0_63_57_59                                      |    <0.001 |
+|   storage_13_reg_0_63_60_62                                      |    <0.001 |
+|   storage_13_reg_0_63_63_65                                      |    <0.001 |
+|   storage_13_reg_0_63_66_68                                      |    <0.001 |
+|   storage_13_reg_0_63_69_71                                      |    <0.001 |
+|   storage_13_reg_0_63_6_8                                        |    <0.001 |
+|   storage_13_reg_0_63_72_74                                      |    <0.001 |
+|   storage_13_reg_0_63_75_77                                      |    <0.001 |
+|   storage_13_reg_0_63_78_80                                      |    <0.001 |
+|   storage_13_reg_0_63_81_83                                      |    <0.001 |
+|   storage_13_reg_0_63_84_86                                      |    <0.001 |
+|   storage_13_reg_0_63_87_89                                      |    <0.001 |
+|   storage_13_reg_0_63_90_92                                      |    <0.001 |
+|   storage_13_reg_0_63_93_95                                      |    <0.001 |
+|   storage_13_reg_0_63_96_98                                      |    <0.001 |
+|   storage_13_reg_0_63_99_101                                     |    <0.001 |
+|   storage_13_reg_0_63_9_11                                       |    <0.001 |
+|   storage_13_reg_64_127_0_2                                      |    <0.001 |
+|   storage_13_reg_64_127_102_104                                  |    <0.001 |
+|   storage_13_reg_64_127_105_107                                  |    <0.001 |
+|   storage_13_reg_64_127_108_110                                  |    <0.001 |
+|   storage_13_reg_64_127_111_113                                  |    <0.001 |
+|   storage_13_reg_64_127_114_114                                  |    <0.001 |
+|   storage_13_reg_64_127_115_115                                  |    <0.001 |
+|   storage_13_reg_64_127_12_14                                    |    <0.001 |
+|   storage_13_reg_64_127_15_17                                    |    <0.001 |
+|   storage_13_reg_64_127_18_20                                    |    <0.001 |
+|   storage_13_reg_64_127_21_23                                    |    <0.001 |
+|   storage_13_reg_64_127_24_26                                    |    <0.001 |
+|   storage_13_reg_64_127_27_29                                    |    <0.001 |
+|   storage_13_reg_64_127_30_32                                    |    <0.001 |
+|   storage_13_reg_64_127_33_35                                    |    <0.001 |
+|   storage_13_reg_64_127_36_38                                    |    <0.001 |
+|   storage_13_reg_64_127_39_41                                    |    <0.001 |
+|   storage_13_reg_64_127_3_5                                      |    <0.001 |
+|   storage_13_reg_64_127_42_44                                    |    <0.001 |
+|   storage_13_reg_64_127_45_47                                    |    <0.001 |
+|   storage_13_reg_64_127_48_50                                    |    <0.001 |
+|   storage_13_reg_64_127_51_53                                    |    <0.001 |
+|   storage_13_reg_64_127_54_56                                    |    <0.001 |
+|   storage_13_reg_64_127_57_59                                    |    <0.001 |
+|   storage_13_reg_64_127_60_62                                    |    <0.001 |
+|   storage_13_reg_64_127_63_65                                    |    <0.001 |
+|   storage_13_reg_64_127_66_68                                    |    <0.001 |
+|   storage_13_reg_64_127_69_71                                    |    <0.001 |
+|   storage_13_reg_64_127_6_8                                      |    <0.001 |
+|   storage_13_reg_64_127_72_74                                    |    <0.001 |
+|   storage_13_reg_64_127_75_77                                    |    <0.001 |
+|   storage_13_reg_64_127_78_80                                    |    <0.001 |
+|   storage_13_reg_64_127_81_83                                    |    <0.001 |
+|   storage_13_reg_64_127_84_86                                    |    <0.001 |
+|   storage_13_reg_64_127_87_89                                    |    <0.001 |
+|   storage_13_reg_64_127_90_92                                    |    <0.001 |
+|   storage_13_reg_64_127_93_95                                    |    <0.001 |
+|   storage_13_reg_64_127_96_98                                    |    <0.001 |
+|   storage_13_reg_64_127_99_101                                   |    <0.001 |
+|   storage_13_reg_64_127_9_11                                     |    <0.001 |
+|   storage_19_reg_0_3_0_5                                         |    <0.001 |
+|   storage_19_reg_0_3_12_17                                       |    <0.001 |
+|   storage_19_reg_0_3_18_23                                       |    <0.001 |
+|   storage_19_reg_0_3_24_29                                       |    <0.001 |
+|   storage_19_reg_0_3_30_31                                       |    <0.001 |
+|   storage_19_reg_0_3_6_11                                        |    <0.001 |
+|   storage_1_reg_0_15_0_5                                         |    <0.001 |
+|   storage_1_reg_0_15_6_7                                         |    <0.001 |
+|   storage_20_reg_0_3_0_5                                         |    <0.001 |
+|   storage_20_reg_0_3_12_17                                       |    <0.001 |
+|   storage_20_reg_0_3_18_23                                       |    <0.001 |
+|   storage_20_reg_0_3_24_29                                       |    <0.001 |
+|   storage_20_reg_0_3_30_31                                       |    <0.001 |
+|   storage_20_reg_0_3_6_11                                        |    <0.001 |
+|   storage_21_reg_0_3_0_5                                         |    <0.001 |
+|   storage_21_reg_0_3_12_17                                       |    <0.001 |
+|   storage_21_reg_0_3_18_23                                       |    <0.001 |
+|   storage_21_reg_0_3_24_29                                       |    <0.001 |
+|   storage_21_reg_0_3_30_31                                       |    <0.001 |
+|   storage_21_reg_0_3_6_11                                        |    <0.001 |
+|   storage_22_reg_0_3_0_5                                         |    <0.001 |
+|   storage_22_reg_0_3_12_17                                       |    <0.001 |
+|   storage_22_reg_0_3_18_23                                       |    <0.001 |
+|   storage_22_reg_0_3_24_29                                       |    <0.001 |
+|   storage_22_reg_0_3_30_31                                       |    <0.001 |
+|   storage_22_reg_0_3_6_11                                        |    <0.001 |
+|   storage_23_reg_0_3_0_5                                         |    <0.001 |
+|   storage_23_reg_0_3_12_17                                       |    <0.001 |
+|   storage_23_reg_0_3_18_23                                       |    <0.001 |
+|   storage_23_reg_0_3_24_29                                       |    <0.001 |
+|   storage_23_reg_0_3_30_31                                       |    <0.001 |
+|   storage_23_reg_0_3_6_11                                        |    <0.001 |
+|   storage_2_reg_0_7_0_5                                          |    <0.001 |
+|   storage_2_reg_0_7_6_7                                          |    <0.001 |
+|   storage_5_reg_0_3_0_5                                          |    <0.001 |
+|   storage_5_reg_0_3_12_17                                        |    <0.001 |
+|   storage_5_reg_0_3_18_23                                        |    <0.001 |
+|   storage_5_reg_0_3_24_29                                        |    <0.001 |
+|   storage_5_reg_0_3_30_33                                        |    <0.001 |
+|   storage_5_reg_0_3_6_11                                         |    <0.001 |
+|   storage_6_reg_0_3_0_5                                          |    <0.001 |
+|   storage_6_reg_0_3_12_12                                        |    <0.001 |
+|   storage_6_reg_0_3_6_11                                         |    <0.001 |
+|   storage_8_reg_0_63_0_2                                         |    <0.001 |
+|   storage_8_reg_0_63_102_104                                     |    <0.001 |
+|   storage_8_reg_0_63_105_107                                     |    <0.001 |
+|   storage_8_reg_0_63_108_110                                     |    <0.001 |
+|   storage_8_reg_0_63_111_113                                     |    <0.001 |
+|   storage_8_reg_0_63_114_114                                     |    <0.001 |
+|   storage_8_reg_0_63_115_115                                     |    <0.001 |
+|   storage_8_reg_0_63_12_14                                       |    <0.001 |
+|   storage_8_reg_0_63_15_17                                       |    <0.001 |
+|   storage_8_reg_0_63_18_20                                       |    <0.001 |
+|   storage_8_reg_0_63_21_23                                       |    <0.001 |
+|   storage_8_reg_0_63_24_26                                       |    <0.001 |
+|   storage_8_reg_0_63_27_29                                       |    <0.001 |
+|   storage_8_reg_0_63_30_32                                       |    <0.001 |
+|   storage_8_reg_0_63_33_35                                       |    <0.001 |
+|   storage_8_reg_0_63_36_38                                       |    <0.001 |
+|   storage_8_reg_0_63_39_41                                       |    <0.001 |
+|   storage_8_reg_0_63_3_5                                         |    <0.001 |
+|   storage_8_reg_0_63_42_44                                       |    <0.001 |
+|   storage_8_reg_0_63_45_47                                       |    <0.001 |
+|   storage_8_reg_0_63_48_50                                       |    <0.001 |
+|   storage_8_reg_0_63_51_53                                       |    <0.001 |
+|   storage_8_reg_0_63_54_56                                       |    <0.001 |
+|   storage_8_reg_0_63_57_59                                       |    <0.001 |
+|   storage_8_reg_0_63_60_62                                       |    <0.001 |
+|   storage_8_reg_0_63_63_65                                       |    <0.001 |
+|   storage_8_reg_0_63_66_68                                       |    <0.001 |
+|   storage_8_reg_0_63_69_71                                       |    <0.001 |
+|   storage_8_reg_0_63_6_8                                         |    <0.001 |
+|   storage_8_reg_0_63_72_74                                       |    <0.001 |
+|   storage_8_reg_0_63_75_77                                       |    <0.001 |
+|   storage_8_reg_0_63_78_80                                       |    <0.001 |
+|   storage_8_reg_0_63_81_83                                       |    <0.001 |
+|   storage_8_reg_0_63_84_86                                       |    <0.001 |
+|   storage_8_reg_0_63_87_89                                       |    <0.001 |
+|   storage_8_reg_0_63_90_92                                       |    <0.001 |
+|   storage_8_reg_0_63_93_95                                       |    <0.001 |
+|   storage_8_reg_0_63_96_98                                       |    <0.001 |
+|   storage_8_reg_0_63_99_101                                      |    <0.001 |
+|   storage_8_reg_0_63_9_11                                        |    <0.001 |
+|   storage_8_reg_64_127_0_2                                       |    <0.001 |
+|   storage_8_reg_64_127_102_104                                   |    <0.001 |
+|   storage_8_reg_64_127_105_107                                   |    <0.001 |
+|   storage_8_reg_64_127_108_110                                   |    <0.001 |
+|   storage_8_reg_64_127_111_113                                   |    <0.001 |
+|   storage_8_reg_64_127_114_114                                   |    <0.001 |
+|   storage_8_reg_64_127_115_115                                   |    <0.001 |
+|   storage_8_reg_64_127_12_14                                     |    <0.001 |
+|   storage_8_reg_64_127_15_17                                     |    <0.001 |
+|   storage_8_reg_64_127_18_20                                     |    <0.001 |
+|   storage_8_reg_64_127_21_23                                     |    <0.001 |
+|   storage_8_reg_64_127_24_26                                     |    <0.001 |
+|   storage_8_reg_64_127_27_29                                     |    <0.001 |
+|   storage_8_reg_64_127_30_32                                     |    <0.001 |
+|   storage_8_reg_64_127_33_35                                     |    <0.001 |
+|   storage_8_reg_64_127_36_38                                     |    <0.001 |
+|   storage_8_reg_64_127_39_41                                     |    <0.001 |
+|   storage_8_reg_64_127_3_5                                       |    <0.001 |
+|   storage_8_reg_64_127_42_44                                     |    <0.001 |
+|   storage_8_reg_64_127_45_47                                     |    <0.001 |
+|   storage_8_reg_64_127_48_50                                     |    <0.001 |
+|   storage_8_reg_64_127_51_53                                     |    <0.001 |
+|   storage_8_reg_64_127_54_56                                     |    <0.001 |
+|   storage_8_reg_64_127_57_59                                     |    <0.001 |
+|   storage_8_reg_64_127_60_62                                     |    <0.001 |
+|   storage_8_reg_64_127_63_65                                     |    <0.001 |
+|   storage_8_reg_64_127_66_68                                     |    <0.001 |
+|   storage_8_reg_64_127_69_71                                     |    <0.001 |
+|   storage_8_reg_64_127_6_8                                       |    <0.001 |
+|   storage_8_reg_64_127_72_74                                     |    <0.001 |
+|   storage_8_reg_64_127_75_77                                     |    <0.001 |
+|   storage_8_reg_64_127_78_80                                     |    <0.001 |
+|   storage_8_reg_64_127_81_83                                     |    <0.001 |
+|   storage_8_reg_64_127_84_86                                     |    <0.001 |
+|   storage_8_reg_64_127_87_89                                     |    <0.001 |
+|   storage_8_reg_64_127_90_92                                     |    <0.001 |
+|   storage_8_reg_64_127_93_95                                     |    <0.001 |
+|   storage_8_reg_64_127_96_98                                     |    <0.001 |
+|   storage_8_reg_64_127_99_101                                    |    <0.001 |
+|   storage_8_reg_64_127_9_11                                      |    <0.001 |
+|   storage_reg_0_15_0_5                                           |    <0.001 |
+|   storage_reg_0_15_6_7                                           |    <0.001 |
++------------------------------------------------------------------+-----------+
+
+

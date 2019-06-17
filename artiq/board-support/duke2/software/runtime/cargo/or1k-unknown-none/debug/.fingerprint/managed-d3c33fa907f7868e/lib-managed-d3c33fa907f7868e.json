@@ -1,0 +1,1 @@
+{"rustc":8132355113173147978,"features":"[\"alloc\", \"map\"]","target":14293654602823202101,"profile":375575081162582521,"path":12071480334152685458,"deps":[],"local":[{"Precalculated":"0.7.0"}],"rustflags":["-Ctarget-feature=+mul,+div,+ffl1,+cmov,+addc","-Crelocation-model=static","-Copt-level=s","-Cpanic=unwind"],"edition":"Edition2015"}
