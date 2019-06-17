@@ -233,6 +233,31 @@ fn process_aux_packet(_repeaters: &mut [repeater::Repeater],
             }
             drtioaux::send(0, &drtioaux::Packet::InjectionStatusReply { value: value })
         },
+        drtioaux::Packet::InjectionRequest32 { destination: _destination, channel, overrd, value } => {
+            forward!(_routing_table, _destination, *_rank, _repeaters, &packet);
+            #[cfg(has_rtio_moninj)]
+            unsafe {
+                csr::rtio_moninj::inj_chan_sel_write(channel as _);
+                csr::rtio_moninj::inj_override_sel_write(overrd);
+                csr::rtio_moninj::inj_value_write(value);
+            }
+            Ok(())
+        },
+        drtioaux::Packet::InjectionStatusRequest32 { destination: _destination, channel, overrd } => {
+            forward!(_routing_table, _destination, *_rank, _repeaters, &packet);
+            let value;
+            #[cfg(has_rtio_moninj)]
+            unsafe {
+                csr::rtio_moninj::inj_chan_sel_write(channel as _);
+                csr::rtio_moninj::inj_override_sel_write(overrd);
+                value = csr::rtio_moninj::inj_value_read();
+            }
+            #[cfg(not(has_rtio_moninj))]
+            {
+                value = 0;
+            }
+            drtioaux::send(0, &drtioaux::Packet::InjectionStatusReply32 { value: value })
+        },
 
         drtioaux::Packet::I2cStartRequest { destination: _destination, busno } => {
             forward!(_routing_table, _destination, *_rank, _repeaters, &packet);

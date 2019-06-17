@@ -3,7 +3,7 @@ from migen.build.generic_platform import *
 from migen.genlib.io import DifferentialOutput
 
 from artiq.gateware import rtio
-from artiq.gateware.rtio.phy import spi2, ad53xx_monitor, grabber
+from artiq.gateware.rtio.phy import spi2, ad53xx_monitor, grabber, urukul_monitor
 from artiq.gateware.suservo import servo, pads as servo_pads
 from artiq.gateware.rtio.phy import servo as rtservo
 
@@ -164,10 +164,10 @@ class Urukul(_EEM):
                 iostandard="LVDS_25"):
         cls.add_extension(target, eem, eem_aux, iostandard=iostandard)
 
-        phy = spi2.SPIMaster(target.platform.request("urukul{}_spi_p".format(eem)),
+        spi_phy = spi2.SPIMaster(target.platform.request("urukul{}_spi_p".format(eem)),
             target.platform.request("urukul{}_spi_n".format(eem)))
-        target.submodules += phy
-        target.rtio_channels.append(rtio.Channel.from_phy(phy, ififo_depth=4))
+        target.submodules += spi_phy
+        target.rtio_channels.append(rtio.Channel.from_phy(spi_phy, ififo_depth=4))
 
         pads = target.platform.request("urukul{}_dds_reset_sync_in".format(eem))
         pad = Signal(reset=0)
@@ -187,6 +187,11 @@ class Urukul(_EEM):
                 phy = ttl_out_cls(pads.p, pads.n)
                 target.submodules += phy
                 target.rtio_channels.append(rtio.Channel.from_phy(phy))
+
+        dds_monitor = urukul_monitor.UrukulMonitor(spi_phy.rtlink)
+        target.submodules += dds_monitor
+        spi_phy.probes.extend(dds_monitor.probes)
+        # spi_phy.overrides.extend(dds_monitor.overrides)
 
 class Sampler(_EEM):
     @staticmethod
