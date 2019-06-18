@@ -21,19 +21,19 @@ mod local_moninj {
         }
     }
 
-    pub fn inject(channel: u16, overrd: u8, value: u8) {
+    pub fn inject(channel: u16, overrd: u8, value: u32) {
         unsafe {
             csr::rtio_moninj::inj_chan_sel_write(channel as _);
             csr::rtio_moninj::inj_override_sel_write(overrd);
-            csr::rtio_moninj::inj_value_write(value);
+            csr::rtio_moninj::inj_value_write(value as u32);
         }
     }
 
-    pub fn read_injection_status(channel: u16, overrd: u8) -> u8 {
+    pub fn read_injection_status(channel: u16, overrd: u8) -> u32 {
         unsafe {
             csr::rtio_moninj::inj_chan_sel_write(channel as _);
             csr::rtio_moninj::inj_override_sel_write(overrd);
-            csr::rtio_moninj::inj_value_read()
+            csr::rtio_moninj::inj_value_read() as u32
         }
     }
 }
@@ -42,9 +42,9 @@ mod local_moninj {
 mod local_moninj {
     pub fn read_probe(_channel: u16, _probe: u8) -> u32 { 0 }
 
-    pub fn inject(_channel: u16, _overrd: u8, _value: u8) { }
+    pub fn inject(_channel: u16, _overrd: u8, _value: u32) { }
 
-    pub fn read_injection_status(_channel: u16, _overrd: u8) -> u8 { 0 }
+    pub fn read_injection_status(_channel: u16, _overrd: u8) -> u32 { 0 }
 }
 
 #[cfg(has_drtio)]
@@ -67,7 +67,7 @@ mod remote_moninj {
         0
     }
 
-    pub fn inject(io: &Io, aux_mutex: &Mutex, linkno: u8, destination: u8, channel: u16, overrd: u8, value: u8) {
+    pub fn inject(io: &Io, aux_mutex: &Mutex, linkno: u8, destination: u8, channel: u16, overrd: u8, value: u32) {
         let _lock = aux_mutex.lock(io).unwrap();
         drtioaux::send(linkno, &drtioaux::Packet::InjectionRequest {
             destination: destination,
@@ -77,7 +77,7 @@ mod remote_moninj {
         }).unwrap();
     }
 
-    pub fn read_injection_status(io: &Io, aux_mutex: &Mutex, linkno: u8, destination: u8, channel: u16, overrd: u8) -> u8 {
+    pub fn read_injection_status(io: &Io, aux_mutex: &Mutex, linkno: u8, destination: u8, channel: u16, overrd: u8) -> u32 {
         let reply = drtio::aux_transact(io, aux_mutex, linkno, &drtioaux::Packet::InjectionStatusRequest {
             destination: destination,
             channel: channel,

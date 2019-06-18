@@ -214,7 +214,7 @@ fn process_aux_packet(_repeaters: &mut [repeater::Repeater],
             unsafe {
                 csr::rtio_moninj::inj_chan_sel_write(channel as _);
                 csr::rtio_moninj::inj_override_sel_write(overrd);
-                csr::rtio_moninj::inj_value_write(value);
+                csr::rtio_moninj::inj_value_write(value as u32);
             }
             Ok(())
         },
@@ -225,13 +225,13 @@ fn process_aux_packet(_repeaters: &mut [repeater::Repeater],
             unsafe {
                 csr::rtio_moninj::inj_chan_sel_write(channel as _);
                 csr::rtio_moninj::inj_override_sel_write(overrd);
-                value = csr::rtio_moninj::inj_value_read();
+                value = csr::rtio_moninj::inj_value_read() as u32;
             }
             #[cfg(not(has_rtio_moninj))]
             {
                 value = 0;
             }
-            drtioaux::send(0, &drtioaux::Packet::InjectionStatusReply { value: value })
+            drtioaux::send(0, &drtioaux::Packet::InjectionStatusReply { value: value as u32 })
         },
 
         drtioaux::Packet::I2cStartRequest { destination: _destination, busno } => {
