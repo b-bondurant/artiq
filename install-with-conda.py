@@ -19,6 +19,10 @@ CONDA_PACKAGES = [
 # Set to False if you have already set up conda channels
 ADD_CHANNELS = True
 
+# PROXY: If you are behind a web proxy, configure it in your .condarc (as per
+# the conda manual) and add it to the "curl" command below (add "--proxy
+# http://webproxy.your.com:8080" with your values filled in)
+
 # You should not need to modify the rest of the script below.
 
 import os
@@ -30,8 +34,8 @@ def run(command):
         raise SystemExit("command '{}' returned non-zero exit status: {}".format(command, r))
 
 if ADD_CHANNELS:
-    run("conda config --add channels m-labs")
-    run("conda config --add channels conda-forge")
+    run("conda config --prepend channels m-labs")
+    run("conda config --append channels conda-forge")
 run("conda install -y conda-build curl")
 
 # A questionable conda decision is to ignore dependencies when installing .tar.bz2's directly.

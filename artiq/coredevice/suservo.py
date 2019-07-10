@@ -6,6 +6,7 @@ from artiq.coredevice import urukul, sampler
 
 
 COEFF_WIDTH = 18
+Y_FULL_SCALE_MU = (1 << (COEFF_WIDTH - 1)) - 1
 COEFF_DEPTH = 10 + 1
 WE = 1 << COEFF_DEPTH + 1
 STATE_SEL = 1 << COEFF_DEPTH
@@ -18,7 +19,7 @@ COEFF_SHIFT = 11
 @portable
 def y_mu_to_full_scale(y):
     """Convert servo Y data from machine units to units of full scale."""
-    return y*(1./(1 << COEFF_WIDTH - 1))
+    return y / Y_FULL_SCALE_MU
 
 
 @portable
@@ -194,6 +195,10 @@ class SUServo:
 
         This method does not advance the timeline but consumes all slack.
 
+        If reading servo state through this method collides with the servo
+        writing that same data, the data can become invalid. To ensure
+        consistent and valid data, stop the servo before using this method.
+
         :param adc: ADC channel number (0-7)
         :return: 17 bit signed X0
         """
@@ -223,6 +228,10 @@ class SUServo:
         """Get an ADC reading (IIR filter input X0).
 
         This method does not advance the timeline but consumes all slack.
+
+        If reading servo state through this method collides with the servo
+        writing that same data, the data can become invalid. To ensure
+        consistent and valid data, stop the servo before using this method.
 
         The PGIA gain setting must be known prior to using this method, either
         by setting the gain (:meth:`set_pgia_mu`) or by supplying it
@@ -449,12 +458,16 @@ class Channel:
         """Get a profile's IIR state (filter output, Y0) in machine units.
 
         The IIR state is also know as the "integrator", or the DDS amplitude
-        scale factor. It is 18 bits wide and unsigned.
+        scale factor. It is 17 bits wide and unsigned.
 
         This method does not advance the timeline but consumes all slack.
 
+        If reading servo state through this method collides with the servo
+        writing that same data, the data can become invalid. To ensure
+        consistent and valid data, stop the servo before using this method.
+
         :param profile: Profile number (0-31)
-        :return: 18 bit unsigned Y0
+        :return: 17 bit unsigned Y0
         """
         return self.servo.read(STATE_SEL | (self.servo_channel << 5) | profile)
 
@@ -463,9 +476,13 @@ class Channel:
         """Get a profile's IIR state (filter output, Y0).
 
         The IIR state is also know as the "integrator", or the DDS amplitude
-        scale factor. It is 18 bits wide and unsigned.
+        scale factor. It is 17 bits wide and unsigned.
 
         This method does not advance the timeline but consumes all slack.
+
+        If reading servo state through this method collides with the servo
+        writing that same data, the data can become invalid. To ensure
+        consistent and valid data, stop the servo before using this method.
 
         :param profile: Profile number (0-31)
         :return: IIR filter output in Y0 units of full scale
@@ -477,7 +494,7 @@ class Channel:
         """Set a profile's IIR state (filter output, Y0) in machine units.
 
         The IIR state is also know as the "integrator", or the DDS amplitude
-        scale factor. It is 18 bits wide and unsigned.
+        scale factor. It is 17 bits wide and unsigned.
 
         This method must not be used when the servo could be writing to the
         same location. Either deactivate the profile, or deactivate IIR
@@ -497,7 +514,7 @@ class Channel:
         """Set a profile's IIR state (filter output, Y0).
 
         The IIR state is also know as the "integrator", or the DDS amplitude
-        scale factor. It is 18 bits wide and unsigned.
+        scale factor. It is 17 bits wide and unsigned.
 
         This method must not be used when the servo could be writing to the
         same location. Either deactivate the profile, or deactivate IIR
@@ -508,4 +525,6 @@ class Channel:
         :param profile: Profile number (0-31)
         :param y: IIR state in units of full scale
         """
-        self.set_y_mu(profile, int(round((1 << COEFF_WIDTH - 1)*y)))
+        y_mu = int(round(y * Y_FULL_SCALE_MU))
+        self.set_y_mu(profile, y_mu)
+        return y_mu
