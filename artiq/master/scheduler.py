@@ -1,4 +1,6 @@
 import asyncio
+import os
+
 import logging
 from enum import Enum
 from time import time
@@ -135,6 +137,7 @@ class RunPool:
                 expid["repo_rev"] = self.experiment_db.cur_rev
             wd, repo_msg = self.experiment_db.repo_backend.request_rev(
                 expid["repo_rev"])
+            wd = os.path.join(wd, self.experiment_db.sub_path)
         else:
             wd, repo_msg = None, None
         run = Run(rid, pipeline_name, wd, expid, priority, due_date, flush,

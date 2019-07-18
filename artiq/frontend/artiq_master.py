@@ -44,13 +44,17 @@ def get_argparser():
         help="use the Git repository backend")
     group.add_argument(
         "-r", "--repository", default="repository",
-        help="path to the repository (default: '%(default)s')")
+        help="path to the repository (default: '%(default)s'). "
+             "If using -g, this is the root directory of the git repository.")
+    group.add_argument(
+        "-e", "--experiment-repository", default=".",
+        help="path to the experiment repository, relative to the repository path")
 
     log_args(parser)
 
     parser.add_argument("--name",
-        help="friendly name, displayed in dashboards "
-             "to identify master instead of server address")
+                        help="friendly name, displayed in dashboards "
+                             "to identify master instead of server address")
 
     return parser
 
@@ -80,7 +84,8 @@ def main():
     atexit_register_coroutine(server_broadcast.stop)
 
     log_forwarder.callback = (lambda msg:
-        server_broadcast.broadcast("log", msg))
+                              server_broadcast.broadcast("log", msg))
+
     def ccb_issue(service, *args, **kwargs):
         msg = {
             "service": service,
@@ -89,17 +94,23 @@ def main():
         }
         server_broadcast.broadcast("ccb", msg)
 
-    device_db = DeviceDB(args.device_db)
+    if args.git:
+        repo_backend = GitBackend(args.repository)
+        # if repository and experiment repository are the same, then the git only contains experiment code
+        # and the device_db file must be local
+        if args.experiment_repository == ".":
+            device_db = DeviceDB(args.device_db)
+        else:
+            device_db = DeviceDB(args.device_db, repo_backend)
+    else:
+        repo_backend = FilesystemBackend(args.repository)
+        device_db = DeviceDB(args.device_db)
+
     dataset_db = DatasetDB(args.dataset_db)
     dataset_db.start()
     atexit_register_coroutine(dataset_db.stop)
     worker_handlers = dict()
-
-    if args.git:
-        repo_backend = GitBackend(args.repository)
-    else:
-        repo_backend = FilesystemBackend(args.repository)
-    experiment_db = ExperimentDB(repo_backend, worker_handlers)
+    experiment_db = ExperimentDB(repo_backend, args.experiment_repository, worker_handlers)
     atexit.register(experiment_db.close)
 
     scheduler = Scheduler(RIDCounter(), worker_handlers, experiment_db)
@@ -151,6 +162,7 @@ def main():
 
     print("ARTIQ master is now ready.")
     loop.run_forever()
+
 
 if __name__ == "__main__":
     main()

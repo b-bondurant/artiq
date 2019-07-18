@@ -1,5 +1,6 @@
 import asyncio
 import tokenize
+import os
 
 from artiq.protocols.sync_struct import Notifier, process_mod, update_from_dict
 from artiq.protocols import pyon
@@ -14,8 +15,14 @@ def device_db_from_file(filename):
 
 
 class DeviceDB:
-    def __init__(self, backing_file):
-        self.backing_file = backing_file
+    def __init__(self, backing_file, git_backend=None):
+        self.git_backend = git_backend
+        if self.git_backend is not None:
+            self.cur_rev = self.git_backend.get_head_rev()
+            wd, _ = self.git_backend.request_rev(self.cur_rev)
+            self.backing_file = os.path.join(wd, backing_file)
+        else:
+            self.backing_file = backing_file
         self.data = Notifier(device_db_from_file(self.backing_file))
 
     def scan(self):

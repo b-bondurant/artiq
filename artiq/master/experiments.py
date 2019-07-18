@@ -83,8 +83,9 @@ class _RepoScanner:
 
 
 class ExperimentDB:
-    def __init__(self, repo_backend, worker_handlers):
+    def __init__(self, repo_backend, sub_path, worker_handlers):
         self.repo_backend = repo_backend
+        self.sub_path = sub_path
         self.worker_handlers = worker_handlers
 
         self.cur_rev = self.repo_backend.get_head_rev()
@@ -114,7 +115,7 @@ class ExperimentDB:
             self.cur_rev = new_cur_rev
             self.status["cur_rev"] = new_cur_rev
             t1 = time.monotonic()
-            new_explist = await _RepoScanner(self.worker_handlers).scan(wd)
+            new_explist = await _RepoScanner(self.worker_handlers).scan(os.path.join(wd, self.sub_path))
             logger.info("repository scan took %d seconds", time.monotonic()-t1)
             update_from_dict(self.explist, new_explist)
         finally:
@@ -130,7 +131,7 @@ class ExperimentDB:
             if revision is None:
                 revision = self.cur_rev
             wd, _ = self.repo_backend.request_rev(revision)
-            filename = os.path.join(wd, filename)
+            filename = os.path.join(wd, self.sub_path, filename)
         worker = Worker(self.worker_handlers)
         try:
             description = await worker.examine("examine", filename)
